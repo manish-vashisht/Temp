@@ -31,7 +31,34 @@ export const onBoardUser = async (req,res,next) => {
                 profilePicture
             }
         })
-        return res.json({msg: "User created successfully.", status: true, user})
+        return res.json({msg: "User created successfully.", status: true, user  })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getAllUsers = async (req,res,next) => {
+    try {
+        const prisma = getPrismaInstance()
+        const users = await prisma.user.findMany({
+            orderBy: {name: 'asc'},
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                profilePicture: true,
+                about: true
+            }
+        })
+        const usersGroupedByInitialLetter = {}
+        users.forEach((user) => {
+            const initialLetter = user.name.charAt(0).toUpperCase()
+            if(!usersGroupedByInitialLetter[initialLetter]){
+                usersGroupedByInitialLetter[initialLetter] = []
+            }
+            usersGroupedByInitialLetter[initialLetter].push(user)
+        })
+        return res.status(200).send({users: usersGroupedByInitialLetter})
     } catch (error) {
         next(error)
     }
