@@ -82,7 +82,7 @@ const ChatLIstItem = ({ data, isContactsPage = false }) => {
               )}
             </span>
             {
-              data.totalUnreadMessages > 0 && <span className="bg-icon-green px-[5px] rounded-full text-sm"></span>
+              data.totalUnreadMessages > 0 && <span className="bg-icon-green px-[5px] rounded-full text-sm">{data.totalUnreadMessages}</span>
             }
           </div>
         </div>
