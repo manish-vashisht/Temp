@@ -8,7 +8,7 @@ import ChatLIstItem from "./ChatLIstItem";
 
 const ContactsList = () => {
   const [allContacts, setAllContacts] = useState([]);
-  const [{}, dispatch] = useStateProvider();
+  const [{userInfo}, dispatch] = useStateProvider();
   useEffect(() => {
     const getContacts = async () => {
       try {
