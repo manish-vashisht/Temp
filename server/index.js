@@ -4,10 +4,12 @@ import cors from 'cors'
 import AuthRoutes from './routes/AuthRoutes.js'
 import MessageRoutes from './routes/MessageRoutes.js'
 import { Server } from "socket.io";
+import path from 'path'
 
 dotenv.config()
 
 const app = express()
+const __dirname = path.resolve()
 
 app.use(cors({
     origin: process.env.CLIENT_HOST,
@@ -16,9 +18,9 @@ app.use(cors({
     optionsSuccessStatus: 200
 }))
 app.use(express.json())
-    
-app.use('/uploads/recordings', express.static('uploads/recordings'))
-app.use('/uploads/images', express.static('uploads/images'))
+
+app.use('/uploads/recordings', express.static(path.join(__dirname, 'uploads/recordings')));
+app.use('/uploads/images', express.static(path.join(__dirname, 'uploads/images')));
 
 app.use('/api/auth', AuthRoutes)
 app.use('/api/messages', MessageRoutes)
