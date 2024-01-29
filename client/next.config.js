@@ -7,7 +7,7 @@ const nextConfig = {
     NEXT_PUBLIC_SERVER_HOST: 'https://temp-server-2v0s.onrender.com'
   },
   images: {
-    domains: ['localhost','onrender.com']
+    domains: ['localhost','temp-server-2v0s.onrender.com']
   }
 };
 
