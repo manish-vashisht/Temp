@@ -1,6 +1,6 @@
 import { MdCall } from "react-icons/md";
 import { IoVideocam } from "react-icons/io5";
-import { BiSearchAlt2 } from "react-icons/bi";
+import { BiArrowBack, BiSearchAlt2 } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Avatar from "../common/Avatar";
 import { useStateProvider } from "@/context/StateContext";
@@ -10,7 +10,6 @@ import { useState } from "react";
 
 const ChatHeader = () => {
   const [{ currentChatUser, onlineUsers }, dispatch] = useStateProvider();
-
   const [isContextMenuVisible, setIsContextMenuVisible] = useState(false);
   const [contextMenuCordinates, setContextMenuCordinates] = useState({
     x: 0,
@@ -25,7 +24,7 @@ const ChatHeader = () => {
     {
       name: "Exit",
       callback: async () => {
-        dispatch({type: reducerCases.SET_EXIT_CHAT})
+        dispatch({ type: reducerCases.SET_EXIT_CHAT });
       },
     },
   ];
@@ -55,32 +54,45 @@ const ChatHeader = () => {
   };
 
   return (
-    <div className="h-16 px-4 py-3 flex justify-between items-center bg-panel-header-background z-10">
-      <div className="flex items-center justify-center gap-6">
+    <div className="h-[10vh] px-4 py-3 flex justify-between items-center bg-panel-header-background z-10">
+      <div className="flex items-center justify-center gap-2">
+        <div className="inline sm:hidden">
+          <BiArrowBack
+            className="cursor-pointer text-lg text-white"
+            onClick={() =>
+              dispatch({
+                type: reducerCases.CHANGE_CURRENT_CHAT_USER,
+                user: undefined,
+              })
+            }
+          />
+        </div>
         <Avatar type="sm" image={currentChatUser?.profilePicture} />
         <div className="flex flex-col">
           <span className="text-primary-strong">{currentChatUser?.name}</span>
           <span className="text-secondary text-sm">
-            {
-              onlineUsers.includes(currentChatUser.id) ? 'online' : 'offline'
-            }
+            {onlineUsers.includes(currentChatUser.id) ? "online" : "offline"}
           </span>
         </div>
       </div>
       <div className="flex gap-6">
         <MdCall
-          className="text-panel-header-icon cursor-pointer text-xl"
+          className="text-panel-header-icon cursor-pointer text-lg"
           onClick={handleVoiceCall}
         />
         <IoVideocam
-          className="text-panel-header-icon cursor-pointer text-xl"
+          className="text-panel-header-icon cursor-pointer text-lg"
           onClick={handleVideoCall}
         />
         <BiSearchAlt2
-          className="text-panel-header-icon cursor-pointer text-xl"
+          className="text-panel-header-icon cursor-pointer text-lg"
           onClick={() => dispatch({ type: reducerCases.SET_MESSAGE_SEARCH })}
         />
-        <BsThreeDotsVertical className="text-panel-header-icon cursor-pointer text-xl" onClick={(e) => showContextMenu(e)} id="context-opener" />
+        <BsThreeDotsVertical
+          className="text-panel-header-icon cursor-pointer text-lg"
+          onClick={(e) => showContextMenu(e)}
+          id="context-opener"
+        />
         {isContextMenuVisible && (
           <ContextMenu
             options={contextMenuOptions}
