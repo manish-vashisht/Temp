@@ -34,7 +34,7 @@ const ChatListHeader = () => {
     dispatch({ type: reducerCases.SET_ALL_CONTACTS_PAGE});
   }
   return (
-    <div className="h-16 px-4 py-3 flex justify-between items-center">
+    <div className="h-[10vh] px-4 py-3 flex justify-between items-center">
       <div className="cursor-pointer">
         <Avatar type="sm" image={userInfo?.profileImage} />
       </div>
