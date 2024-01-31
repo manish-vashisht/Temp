@@ -19,16 +19,16 @@ const ContextMenu = ({ options, cordinates, contextMenu, setContextMenu }) => {
 
   const handleClick = (e, callback) => {
     e.stopPropagation()
-    setContextMenu(false)
+    setContextMenu((prev) => !prev)
     callback()
   };
   return (
     <div
-      className={`bg-dropdown-background fixed py-2 z-[100] shadow-xl`}
+      className={`bg-dropdown-background fixed py-2 z-[100] shadow-xl rounded-lg`}
       ref={contextMenuRef}
       style={{
-        top: cordinates.y,
-        left: cordinates.x
+        top: cordinates.y + 30,
+        left: cordinates.x-80
       }}
     >
       <ul>
