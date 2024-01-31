@@ -88,43 +88,43 @@ const Main = () => {
         });
       });
 
-      socket.current.on('incoming-voice-call', ({from, roomId, callType}) => {
+      socket.current.on("incoming-voice-call", ({ from, roomId, callType }) => {
         dispatch({
           type: reducerCases.SET_INCOMING_VOICE_CALL,
           incomingVoiceCall: {
             ...from,
             roomId,
-            callType
-          }
-        })
-      })
+            callType,
+          },
+        });
+      });
 
-      socket.current.on('incoming-video-call', ({from, roomId, callType}) => {
+      socket.current.on("incoming-video-call", ({ from, roomId, callType }) => {
         dispatch({
           type: reducerCases.SET_INCOMING_VIDEO_CALL,
           incomingVideoCall: {
             ...from,
             roomId,
-            callType
-          }
-        })
-      })
+            callType,
+          },
+        });
+      });
 
-      socket.current.on('video-call-rejected', () => {
+      socket.current.on("video-call-rejected", () => {
         dispatch({
-          type: reducerCases.END_CALL
-        })
-      })
+          type: reducerCases.END_CALL,
+        });
+      });
 
-      socket.current.on('voice-call-rejected', () => {
+      socket.current.on("voice-call-rejected", () => {
         dispatch({
-          type: reducerCases.END_CALL
-        })
-      })
+          type: reducerCases.END_CALL,
+        });
+      });
 
-      socket.current.on('online-users', ({onlineUsers}) => {
-        dispatch({type: reducerCases.SET_ONLINE_USERS, onlineUsers})
-      })
+      socket.current.on("online-users", ({ onlineUsers }) => {
+        dispatch({ type: reducerCases.SET_ONLINE_USERS, onlineUsers });
+      });
 
       setSocketEvent(true);
     }
@@ -146,13 +146,8 @@ const Main = () => {
 
   return (
     <>
-
-      {incomingVideoCall && (
-        <IncomingVideoCall />
-      )}
-      {incomingVoiceCall && (
-        <IncomingCall />
-      )}
+      {incomingVideoCall && <IncomingVideoCall />}
+      {incomingVoiceCall && <IncomingCall />}
 
       {videoCall && (
         <div className="h-screen w-screen max-h-full overflow-hidden">
@@ -165,13 +160,11 @@ const Main = () => {
         </div>
       )}
       {!videoCall && !voiceCall && (
-        <div className="grid grid-cols-main h-screen w-screen max-h-screen max-w-full overflow-hidden">
-          <ChatList />
+        <div className="grid sm:grid-cols-main h-screen w-screen max-h-screen max-w-full overflow-hidden">
+          <ChatList currentChatUser={currentChatUser} />
           {currentChatUser ? (
-            <div
-              className={messagesSearch ? "grid grid-cols-2" : "grid-cols-2"}
-            >
-              <Chat />
+            <div className={`absolute sm:relative h-screen z-${currentChatUser ? 100 : -100}`}>
+              <Chat messagesSearch={messagesSearch} />
               {messagesSearch && <SearchMessages />}
             </div>
           ) : (
