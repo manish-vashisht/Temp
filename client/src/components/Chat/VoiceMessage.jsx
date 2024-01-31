@@ -52,6 +52,7 @@ const VoiceMessage = ({ message }) => {
 
   useEffect(() => {
     const audioURL = `${HOST}/${message.message}`;
+    console.log(audioURL)
     const audio = new Audio(audioURL);
     setAudioMessage(audio);
     waveform.current.load(audioURL);
@@ -93,9 +94,9 @@ const VoiceMessage = ({ message }) => {
       }`}
     >
       <div>
-        <Avatar type="lg" image={currentChatUser?.profilePicture} />
+        <Avatar type="sm" image={currentChatUser?.profilePicture} />
       </div>
-      <div className="cursor-pointer text-xl">
+      <div className="cursor-pointer text-lg">
         {!isPlaying ? (
           <FaPlay onClick={handlePlayAudio} />
         ) : (
@@ -103,7 +104,7 @@ const VoiceMessage = ({ message }) => {
         )}
       </div>
       <div className="relative">
-        <div className="w-60" ref={waveFormRef} />
+        <div className="w-40" ref={waveFormRef} />
         <div className="text-bubble-meta text-[11px] pt-1 flex justify-between absolute bottom-[-22px] w-full">
           <span>
             {formatTime(isPlaying ? currentPlaybackTime : totalDuration)}
