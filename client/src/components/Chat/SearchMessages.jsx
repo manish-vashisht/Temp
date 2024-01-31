@@ -23,10 +23,9 @@ const SearchMessages = () => {
       setSearchedMessages([]);
     }
   }, [searchTerm]);
-
   return (
-    <div className="border-conversation-border border-l w-full bg-conversation-panel-background flex flex-col z-10 max-h-screen">
-      <div className="h-16 px-4 py-5 flex gap-10 items-center bg-panel-header-background text-primary-strong">
+    <div className="absolute border-conversation-border border-l w-full bg-conversation-panel-background flex flex-col max-h-screen absolute top-0 opacity-100 h-screen z-[100]">
+      <div className="h-[10vh] px-4 py-7 flex gap-10 items-center bg-panel-header-background text-primary-strong">
         <IoClose
           className="cursor-pointer text-icon-lighter text-2xl"
           onClick={() => dispatch({ type: reducerCases.SET_MESSAGE_SEARCH })}
