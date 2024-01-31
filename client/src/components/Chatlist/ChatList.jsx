@@ -5,7 +5,7 @@ import List from './List'
 import { useStateProvider } from '@/context/StateContext'
 import ContactsList from './ContactsList'
 
-const ChatList = () => {
+const ChatList = ({currentChatUser}) => {
   const [{contactsPage}] = useStateProvider()
   const [pageType, setPageType] = useState('default')
 
@@ -17,7 +17,7 @@ const ChatList = () => {
     }
   },[contactsPage])
   return (
-    <div className='bg-panel-header-background flex flex-col max-h-screen z-20'>
+    <div className={`bg-panel-header-background flex flex-col max-h-screen ${currentChatUser && '-z-1'} sm:z-20`}>
       {pageType === 'default' && (
         <>
         <ChatListHeader />
